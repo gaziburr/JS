@@ -1980,5 +1980,3 @@ window.onload = function () {
       "rgb(" + e.offsetX + "," + e.offsetY + ", 40)";
   }
 };
-
-alert("scroll the whole code to see all javascript concept");
