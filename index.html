@@ -1,80 +1,375 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Item Lister</title>
-    <link rel="stylesheet" href="style.css" />
-    <style>
-      .box {
-        width: 200px;
-        padding: 25px 80px;
-        text-align: center;
-        font-size: 30px;
-        margin-top: 30px;
-      }
 
-      .green {
-        background-color: green;
-      }
-      .blue {
-        background-color: dodgerblue;
-      }
-      .orange {
-        background-color: orangered;
-      }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pig game</title>
+   <style>
+     
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                color: rgb(13, 255, 0);
+            }
+            
+            .clearfix::after {
+                content: "";
+                display: table;
+                clear: both;
+            }
+            
+            body {
+                background-size: cover;
+                background-position: center;
+                font-family: lato;
+                position: relative;
+                height: 100vh;
+                color: #555555;
+                background-image: radial-gradient(circle, red, yellow, green);
+            }
+            
+            .wrapper {
+                width: 1000px;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #fff;
+                box-shadow: 5px 5px 8px blue, 10px 10px 8px red, 15px 15px 8px green;
+                overflow: hidden;
+            }
+            
+            .player-0-panel,
+            player-1-panel {
+                width: 500px;
+                float: left;
+                height: 500px;
+                padding: 100px;
+            }
+            /* players */
+            
+            .final-score {
+                position: absolute;
+                padding: 10px;
+                font-size: 20px;
+                font-weight: bold;
+                width: 200px;
+                transform: translateX(-300%);
+                text-align: center;
+            }
+            
+            .player-1-panel {
+                width: 500px;
+                float: left;
+                height: 500px;
+                padding: 100px;
+            }
+            
+            .player-name {
+                font-size: 40px;
+                text-align: center;
+                text-transform: uppercase;
+                letter-spacing: 2px;
+                font-weight: 100;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                position: relative;
+            }
+            
+            .control {
+                position: absolute;
+                top: 90%;
+                left: 37%;
+            }
+            
+            .player-score {
+                text-align: center;
+                font-size: 80px;
+                font-weight: 100px;
+                color: #EB4D4D;
+                margin-bottom: 130px;
+            }
+            
+            .active {
+                background-image: linear-gradient( green, yellow, blue);
+                color: green;
+                width: 500px;
+                height: 500px;
+                border: 1px solid grey;
+                border-radius: 5%;
+            }
+            
+            .active .player-name::after {
+                content: '\2022';
+                font-size: 47px;
+                position: absolute;
+                color: #EB4D4D;
+                top: -7px;
+                right: 10px;
+            }
+            
+            .player-current-box {
+                background-color: #EB4D4D;
+                color: #fff;
+                width: 40%;
+                margin: 0 auto;
+                padding: 12px;
+                text-align: center;
+            }
+            
+            .player-current-lebel {
+                text-transform: uppercase;
+                margin-bottom: 10px;
+                font-size: 12px;
+                color: #222;
+            }
+            
+            .player-current-score {
+                font-size: 30px;
+            }
+            
+            botton {
+                position: absolute;
+                padding: 30px 30px;
+                left: 46%;
+                transform: translateX(-50%j);
+                color: rgb(238, 25, 25);
+                background: grey;
+                border: none;
+                font-family: cursive;
+                font-size: 20px;
+                margin: auto;
+                text-transform: uppercase;
+                cursor: pointer;
+                font-weight: 300;
+                border: 10px solid grey;
+                transition: background-color 0.3s, color 0.7s;
+            }
+            
+            button:hover {
+                font-weight: 900px;
+                font-size: 20px;
+                background-image: radial-gradient(circle, red, yellow, green);
+                height: 500%;
+                border: 3px solid grey;
+            }
+            
+            button:hover i {
+                margin-right: 20px;
+                height: 20px;
+                font-size: 200%;
+            }
+            
+            .init2 {
+                color: red;
+            }
+            
+            button:focus {
+                outline: none
+            }
+            
+            i {
+                color: #EB4D4D;
+                display: inline-block;
+                margin-right: 15px;
+                font-size: 32px;
+                line-height: 1;
+                vertical-align: text-top;
+                margin-top: -4px;
+                transition: margin 0.3s;
+            }
+            
+            .btn-new {
+                top: 45px;
+            }
+            
+            .btn-roll {
+                top: 403px;
+            }
+            
+            .btn-hold {
+                top: 467px;
+            }
+            
+            #dice1 {
+                position: absolute;
+                left: 50%;
+                top: 250px;
+                transform: translateX(-50%);
+                height: 100px;
+                box-shadow: 5px 10px 18px blue;
+            }
+            
+            #dice2 {
+                position: absolute;
+                left: 50%;
+                top: 120px;
+                transform: translateX(-50%);
+                height: 100px;
+                box-shadow: 5px 10px 18px blue;
+            }
+            
+            .winner {
+                background-image: radial-gradient(circle, red, yellow, green, blue, skyblue);
+                border: 5px solid blue;
+                border-radius: 30%;
+                color: yellow;
+            }
+            
+            .init {
+                font-weight: bold;
+            }
+            
+            .winner .player-name {
+                font-weight: 300px;
+                color: #EB4D4D;
+            }
     </style>
-  </head>
+</head>
 
-  <body>
-    <div>
-      <h1 class="">Section 7: Get Ready for the Future: ES6 / ES2015</h1>
-    </div>
-    <div class="box green">I'm green!</div>
-    <div class="box blue">I'm blue!</div>
-    <div class="box orange">I'm orange!</div>
-
-    <div class="container">
-      <h1 id="header-title">
-        Item Lister <span style="display: none;">123</span>
-      </h1>
-    </div>
-    <header id="main-header" class="bg-success text-white p-4 mb-3">
-      <div class="container">
-        <h1 id="header-title">
-          Item Lister <span style="display: none;">123</span>
-        </h1>
-      </div>
-    </header>
-    <div class="container">
-      <div id="main" class="card card-body">
-        <h2 class="title">Add Items</h2>
-        <form class="form-inline mb-3">
-          <input type="text" class="form-control mr-2" />
-          <select class="form-control mr-2">
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-          </select>
-          <input type="submit" class="btn btn-dark" value="Submit" />
-        </form>
-        <h2 class="title">Items</h2>
-        <ul id="items" class="list-group">
-          <li class="list-group-item">Item 1</li>
-          <li class="list-group-item">Item 2</li>
-          <li class="list-group-item">Item 3</li>
-          <li class="list-group-item">Item 4</li>
-        </ul>
-        <div id="output"></div>
-        <br />
-        <button class="btn btn-dark btn-block" id="button">Click Here</button>
-        <br />
-        <div id="box" style="width: 400px; height: 200px; background: #f4f4f4;">
-          <h3>HELLO</h3>
+<body>
+    <div class="wrapper Clearfix">
+        <div class="player-0-panel active">
+            <div class="player-name" id="name-0">Player-1</div>
+            <div class="player-score" id="score-0">43</div>
+            <div class="player-currnt-box ">
+                <div class="player-current-lebel">current</div>
+                <div class="player-current-score" id="current-0">11</div>
+            </div>
         </div>
-      </div>
+
+
+        <div class="player-1-panel">
+            <div class="player-name" id="name-1">Player-2</div>
+            <div class="player-score" id="score-1">43</div>
+            <div class="player-currnt-box ">
+                <div class="player-current-lebel">current</div>
+                <div class="player-current-score" id="current-1">0</div>
+            </div>
+        </div>
+
+        <div class="control"><button class="btn-new"><i class="ion-ion-plus-outline"></i>New Game</button>
+            <button class="btn-roll"><i class="ion-ion-plus-loop"></i>Roll-dice</button>
+            <button class="btn-hold"><i class="ion-ion-plus-download-outline"></i>Hold</button>
+        </div>
+        <input type="text" class="final-score" placeholder=" Set final-score">
+        <img src="IMAGES/dice-1.JPG" alt="dice" class="dice" id="dice1">
+        <img src="IMAGES/dice-1.JPG" alt="dice" class="dice" id="dice2">
     </div>
-  </body>
-  <script src="a script.js"></script>
-</html>
+    <script">
+             
+var scores, roundscore, gameplaying, activePlayer, lastdice //Declaring variables (which will be define later)
+init()
+document.querySelector('.btn-roll').addEventListener('click', function() {
+    //1. Random number...
+    if (gameplaying) {
+        var dice1 = Math.floor(Math.random() * 6) + 1;
+        var dice2 = Math.floor(Math.random() * 6) + 1;
+
+
+        // 2.display the result (dom manipulation)
+        document.querySelector('#dice1').style.display = 'block';
+        document.querySelector('#dice2').style.display = 'block';
+        document.querySelector('#dice1').src = 'IMAGES/dice-' + dice1 + '.JPG'
+        document.querySelector('#dice2').src = 'IMAGES/dice-' + dice2 + '.JPG'
+            //Update the round score IF the rolled number was NOt a 6
+        if (dice1 === 6 && dice2 === 6) { //and operator, '===' checks value and datatype
+            roundscore += 0
+                //player loses score
+            scores[activePlayer] = 0
+            document.querySelector('#score-' + activePlayer).textContent = 0;
+            nextPlayer() //calling a function
+        }
+        // 3.Update the round score if the rolled number was not a 1 
+        else if (dice1 !== 1 && dice2 != 1) {
+            // add score 
+            roundscore += dice1 + dice2;
+            document.querySelector('#current-' + activePlayer).textContent = roundscore;
+        } else {
+            //next player function
+            nextPlayer()
+        }
+    }
+})
+
+document.querySelector('.btn-hold').addEventListener('click', function() {
+
+    if (gameplaying) {
+        // Update the UI
+        //Add the CURRENT to Global score
+        scores[activePlayer] += roundscore //Same as ' score[activePlayer]=score[activePlayer]+roundscore]'
+        document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer] //textContent methods
+            //next player
+        var input = document.querySelector('.final-score').value; //accesing the value
+        var winningscore; //just declare the variable
+        //Undefined,null ,0 and "" are coarced to false
+        //Anything else is coarced to true.
+        if (input) {
+            winningscore = input //Defining the variable
+        } else {
+            winningscore = 100 //Defining the variable
+        }
+
+
+
+
+
+        //Check if the player won the game
+        if (scores[activePlayer] >= winningscore) {
+            document.querySelector('#name-' + activePlayer).textContent = '--WINNER!--';
+            document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner')
+                // document.querySelector('.player-' + activePlayer + '-panel').classList.remove('winner')
+            document.querySelector('#dice1').style.display = 'none'
+            document.querySelector('#dice2').style.display = 'none'
+            gameplaying = false
+
+        } else {
+            //next player
+            nextPlayer()
+        }
+
+    }
+})
+
+document.querySelector('.btn-new').addEventListener('click', init)
+
+//Making a Reusable function.. Gazibur 
+function nextPlayer() {
+    activePlayer === 0 ? activePlayer = 1 : activePlayer = 0;
+    roundscore = 0;
+    //Dom
+    document.querySelector('#dice1').style.display = 'none';
+    document.querySelector('#dice2').style.display = 'none';
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+    document.querySelector('.player-0-panel').classList.toggle('active');
+    document.querySelector('.player-1-panel').classList.toggle('active');
+}
+//Another ReUsable function.
+function init() {
+    scores = [0, 0]
+    roundscore = 0;
+    activePlayer = 0;
+    gameplaying = true
+        //All are accessing Dom (changing, adding and reading) Gazibur.
+    document.querySelector('#dice1').style.display = 'none';
+    document.querySelector('#dice2').style.display = 'none';
+    document.querySelector('#name-0').textContent = 'PLAYER-1';
+    document.querySelector('#name-1').textContent = 'PLAYER-2';
+
+    document.getElementById('score-0').textContent = '0';
+    document.getElementById('score-1').textContent = '0'
+    document.getElementById('current-0').textContent = '0';
+    document.getElementById('current-1').textContent = '0';
+
+    document.querySelector('.player-score').style.color = 'blue'
+
+    document.querySelector('.player-0-panel').classList.remove('active');
+    document.querySelector('.player-1-panel').classList.remove('active');
+    document.querySelector('.player-0-panel').classList.remove('winner')
+    document.querySelector('.player-1-panel').classList.remove('winner')
+    document.querySelector('.player-0-panel').classList.add('active');
+}
+            </script>
